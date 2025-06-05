@@ -129,11 +129,20 @@
 
         .quick-link {
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 1rem;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
         .quick-link:hover {
             transform: translateY(-3px) scale(1.05);
             color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
         .settings-panel {
@@ -212,35 +221,35 @@
 
     <!-- Main Container -->
     <div class="relative z-10 min-h-screen flex flex-col">
-        <!-- Header -->
-        <header class="flex justify-between items-center p-6">
-            <div class="flex items-center space-x-4">
-                <button id="theme-toggle" class="glass rounded-full p-3 hover:bg-white/20 transition-all">
-                    <i class="fas fa-sun text-xl"></i>
-                </button>
-                <div class="glass rounded-full px-4 py-2 text-sm" id="location">
-                    <i class="fas fa-map-marker-alt mr-2"></i>
-                    <span>Detecting location...</span>
-                </div>
+    <!-- Header -->
+    <header class="flex justify-between items-center p-6 mb-8">
+        <div class="flex items-center space-x-4">
+            <button id="theme-toggle" class="glass rounded-full p-3 hover:bg-white/20 transition-all">
+                <i class="fas fa-sun text-xl"></i>
+            </button>
+            <div class="glass rounded-full px-4 py-2 text-sm" id="location">
+                <i class="fas fa-map-marker-alt mr-2"></i>
+                <span>Detecting location...</span>
             </div>
-            <div class="flex items-center space-x-4">
-                <div class="glass rounded-full px-4 py-2 text-sm" id="battery-status" style="display: none;">
-                    <i class="fas fa-battery-full mr-2"></i>
-                    <span>100%</span>
-                </div>
-                <button id="settings-btn" class="glass rounded-full p-3 hover:bg-white/20 transition-all">
-                    <i class="fas fa-cog text-xl"></i>
-                </button>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div class="glass rounded-full px-4 py-2 text-sm" id="battery" style="display: none;">
+                <i class="fas fa-battery-full mr-2"></i>
+                <span>100%</span>
             </div>
-        </header>
+            <button id="settings-btn" class="glass rounded-full p-3 hover:bg-white/20 transition-all">
+                <i class="fas fa-cog text-xl"></i>
+            </button>
+        </div>
+    </header>
 
         <!-- Main Content -->
-        <main class="flex-1 flex flex-col items-center justify-center px-6 space-y-8">
+        <main class="flex-1 flex flex-col items-center justify-center px-6 space-y-12">
             <!-- Time and Weather -->
-            <div class="text-center space-y-4 animate-fade-in">
-                <div class="time-display text-6xl md:text-8xl font-bold" id="time">12:00 PM</div>
-                <div class="text-xl md:text-2xl opacity-80" id="date">Monday, January 1st</div>
-                <div class="flex items-center justify-center space-x-4 mt-4" id="weather-widget">
+            <div class="text-center space-y-6 animate-fade-in">
+                <div class="time-display text-6xl md:text-8xl font-bold mb-4" id="time">12:00 PM</div>
+                <div class="text-xl md:text-2xl opacity-80 mb-6" id="date">Monday, January 1st</div>
+                <div class="flex items-center justify-center space-x-4 mt-6" id="weather-widget">
                     <div class="glass rounded-2xl px-6 py-3 flex items-center space-x-3">
                         <i class="fas fa-sun weather-icon text-2xl text-yellow-400"></i>
                         <div>
@@ -252,12 +261,14 @@
             </div>
 
             <!-- Logo -->
-            <div class="animate-float">
-                <img src="webbstart.png" alt="Logo" class="max-w-xs opacity-90 hover:opacity-100 transition-opacity">
+            <div class="animate-float mb-8">
+                <h1 class="text-4xl md:text-6xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+                    WebbstArt
+                </h1>
             </div>
 
             <!-- Search -->
-            <div class="w-full max-w-2xl animate-slide-up">
+            <div class="w-full max-w-2xl animate-slide-up mb-12">
                 <form id="search-form" class="relative">
                     <div class="relative">
                         <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60"></i>
@@ -281,10 +292,10 @@
             </div>
 
             <!-- Quick Access -->
-            <div class="w-full max-w-6xl animate-slide-up" style="animation-delay: 0.2s;">
-                <div class="glass-strong rounded-3xl p-6">
-                    <h3 class="text-lg font-semibold mb-4 text-center opacity-90">Quick Access</h3>
-                    <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-10 gap-4" id="quick-links">
+            <div class="w-full max-w-6xl animate-slide-up mb-12" style="animation-delay: 0.2s;">
+                <div class="glass-strong rounded-3xl p-8">
+                    <h3 class="text-lg font-semibold mb-6 text-center opacity-90">Quick Access</h3>
+                    <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-10 gap-6" id="quick-links">
                         <!-- Quick links will be populated by JavaScript -->
                     </div>
                 </div>
@@ -292,72 +303,72 @@
         </main>
 
         <!-- Widgets Section -->
-        <section class="px-6 pb-6">
-            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <section class="px-6 pb-12 mt-8">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Todo Widget -->
-                <div class="widget glass-strong rounded-2xl p-6">
-                    <div class="flex items-center justify-between mb-4">
+                <div class="widget glass-strong rounded-2xl p-8">
+                    <div class="flex items-center justify-between mb-6">
                         <h3 class="text-lg font-semibold flex items-center">
-                            <i class="fas fa-tasks mr-2 text-blue-400"></i>
+                            <i class="fas fa-tasks mr-3 text-blue-400"></i>
                             Todo List
                         </h3>
-                        <button id="add-todo-btn" class="text-blue-400 hover:text-blue-300">
+                        <button id="add-todo-btn" class="text-blue-400 hover:text-blue-300 p-2">
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
-                    <div class="space-y-2 max-h-40 overflow-y-auto custom-scrollbar" id="todo-list">
+                    <div class="space-y-3 max-h-40 overflow-y-auto custom-scrollbar" id="todo-list">
                         <!-- Todo items will be populated by JavaScript -->
                     </div>
-                    <div class="mt-4" id="todo-input-container" style="display: none;">
+                    <div class="mt-6" id="todo-input-container" style="display: none;">
                         <input 
                             type="text" 
                             id="todo-input"
-                            class="w-full bg-white/10 rounded-lg px-3 py-2 text-sm placeholder-white/60"
+                            class="w-full bg-white/10 rounded-lg px-4 py-3 text-sm placeholder-white/60"
                             placeholder="Add a new task..."
                         >
                     </div>
                 </div>
 
                 <!-- Notes Widget -->
-                <div class="widget glass-strong rounded-2xl p-6">
-                    <div class="flex items-center justify-between mb-4">
+                <div class="widget glass-strong rounded-2xl p-8">
+                    <div class="flex items-center justify-between mb-6">
                         <h3 class="text-lg font-semibold flex items-center">
-                            <i class="fas fa-sticky-note mr-2 text-yellow-400"></i>
+                            <i class="fas fa-sticky-note mr-3 text-yellow-400"></i>
                             Quick Notes
                         </h3>
-                        <button id="save-notes-btn" class="text-yellow-400 hover:text-yellow-300">
+                        <button id="save-notes-btn" class="text-yellow-400 hover:text-yellow-300 p-2">
                             <i class="fas fa-save"></i>
                         </button>
                     </div>
                     <textarea 
                         id="notes-textarea"
-                        class="w-full h-32 bg-white/10 rounded-lg p-3 text-sm placeholder-white/60 resize-none custom-scrollbar"
+                        class="w-full h-32 bg-white/10 rounded-lg p-4 text-sm placeholder-white/60 resize-none custom-scrollbar"
                         placeholder="Write your notes here..."
                     ></textarea>
                 </div>
 
-                <!-- Pomodoro Timer Widget -->
-                <div class="widget glass-strong rounded-2xl p-6">
-                    <div class="flex items-center justify-between mb-4">
+                <!-- Pomodoro Widget -->
+                <div class="widget glass-strong rounded-2xl p-8">
+                    <div class="flex items-center justify-between mb-6">
                         <h3 class="text-lg font-semibold flex items-center">
-                            <i class="fas fa-clock mr-2 text-red-400"></i>
+                            <i class="fas fa-clock mr-3 text-red-400"></i>
                             Pomodoro
                         </h3>
-                        <button id="pomodoro-reset" class="text-red-400 hover:text-red-300">
+                        <button id="pomodoro-reset" class="text-red-400 hover:text-red-300 p-2">
                             <i class="fas fa-redo"></i>
                         </button>
                     </div>
                     <div class="text-center">
-                        <div class="text-3xl font-mono font-bold mb-4" id="pomodoro-time">25:00</div>
-                        <div class="flex justify-center space-x-2">
-                            <button id="pomodoro-start" class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                        <div class="text-3xl font-mono mb-6" id="pomodoro-display">25:00</div>
+                        <div class="flex justify-center space-x-3">
+                            <button id="pomodoro-start" class="bg-green-500 hover:bg-green-600 px-6 py-3 rounded-lg text-sm font-medium transition-colors">
                                 Start
                             </button>
-                            <button id="pomodoro-pause" class="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            <button id="pomodoro-pause" class="bg-yellow-500 hover:bg-yellow-600 px-6 py-3 rounded-lg text-sm font-medium transition-colors">
                                 Pause
                             </button>
                         </div>
-                        <div class="mt-2 text-xs opacity-70" id="pomodoro-status">Ready to focus</div>
+                        <div class="text-xs opacity-60 mt-4" id="pomodoro-mode">Work Session</div>
                     </div>
                 </div>
             </div>
