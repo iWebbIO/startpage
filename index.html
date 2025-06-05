@@ -1,337 +1,480 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Start Page</title>
+    <title>Modern Startpage</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'gradient': 'gradient 15s ease infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'slide-up': 'slideUp 0.3s ease-out',
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                    },
+                    backdropBlur: {
+                        'xs': '2px',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
+        :root {
+            --primary-color: #3b82f6;
+            --secondary-color: #8b5cf6;
+            --accent-color: #06b6d4;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.8);
+        }
+
+        [data-theme="dark"] {
+            --glass-bg: rgba(0, 0, 0, 0.2);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
         body {
-            background: linear-gradient(45deg, #0000ff, #000000);
+            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe);
             background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
+            animation: gradient 15s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
+        .theme-morning {
+            background: linear-gradient(-45deg, #ff9a9e, #fecfef, #fecfef, #ff9a9e);
         }
 
-        .cool-font {
-            font-family: 'Roboto Mono', monospace;
+        .theme-afternoon {
+            background: linear-gradient(-45deg, #a8edea, #fed6e3, #d299c2, #fef9d7);
         }
 
-        .settings-panel {
-            display: none;
+        .theme-evening {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+        }
+
+        .theme-night {
+            background: linear-gradient(-45deg, #232526, #414345, #000428, #004e92);
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-strong {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
         }
 
         .search-input {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border: none;
-            outline: none;
-            transition: background 0.3s ease, box-shadow 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 2px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .search-input:focus {
-            background: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 0 10px 2px rgba(0, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.1), 0 0 20px rgba(6, 182, 212, 0.3);
         }
 
-        .search-input.pulse {
-            animation: pulse 2s infinite;
+        .widget {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 10px 2px rgba(0, 255, 255, 0.7);
-            }
-
-            50% {
-                box-shadow: 0 0 20px 4px rgba(0, 255, 255, 1);
-            }
-
-            100% {
-                box-shadow: 0 0 10px 2px rgba(0, 255, 255, 0.7);
-            }
+        .widget:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
         }
 
-        .dock {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            border-radius: 20px;
+        .quick-link {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .quick-link:hover {
+            transform: translateY(-3px) scale(1.05);
+            color: var(--accent-color);
+        }
+
+        .settings-panel {
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .settings-panel.open {
+            transform: translateX(0);
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .time-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .weather-icon {
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        }
+
+        .todo-item {
+            transition: all 0.2s ease;
+        }
+
+        .todo-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .todo-item.completed {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
         }
     </style>
 </head>
+<body class="text-white relative">
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
 
-<body class="flex flex-col items-center justify-between min-h-screen text-white relative">
-    <div class="w-full text-center py-8">
-        <div class="text-6xl md:text-8xl font-bold cool-font" id="time">12:00 PM</div>
-    </div>
-
-    <div class="w-full flex flex-col items-center py-4">
-        <img src="https://iwebbio.github.io/startpage/webbstart.png" alt="Logo" class="mb-4 max-w-xs">
-        <form action="https://www.bing.com/search" method="get" class="w-full max-w-md">
-
-
-            <div class="relative">
-                <input type="text" name="q"
-                    class="w-full py-2 px-4 rounded-full text-white search-input placeholder-white pulse"
-                    placeholder="Search Bing...">
+    <!-- Main Container -->
+    <div class="relative z-10 min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="flex justify-between items-center p-6">
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="glass rounded-full p-3 hover:bg-white/20 transition-all">
+                    <i class="fas fa-sun text-xl"></i>
+                </button>
+                <div class="glass rounded-full px-4 py-2 text-sm" id="location">
+                    <i class="fas fa-map-marker-alt mr-2"></i>
+                    <span>Detecting location...</span>
+                </div>
             </div>
-        </form>
+            <div class="flex items-center space-x-4">
+                <div class="glass rounded-full px-4 py-2 text-sm" id="battery-status" style="display: none;">
+                    <i class="fas fa-battery-full mr-2"></i>
+                    <span>100%</span>
+                </div>
+                <button id="settings-btn" class="glass rounded-full p-3 hover:bg-white/20 transition-all">
+                    <i class="fas fa-cog text-xl"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col items-center justify-center px-6 space-y-8">
+            <!-- Time and Weather -->
+            <div class="text-center space-y-4 animate-fade-in">
+                <div class="time-display text-6xl md:text-8xl font-bold" id="time">12:00 PM</div>
+                <div class="text-xl md:text-2xl opacity-80" id="date">Monday, January 1st</div>
+                <div class="flex items-center justify-center space-x-4 mt-4" id="weather-widget">
+                    <div class="glass rounded-2xl px-6 py-3 flex items-center space-x-3">
+                        <i class="fas fa-sun weather-icon text-2xl text-yellow-400"></i>
+                        <div>
+                            <div class="text-lg font-semibold" id="temperature">--°</div>
+                            <div class="text-sm opacity-80" id="weather-desc">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logo -->
+            <div class="animate-float">
+                <img src="webbstart.png" alt="Logo" class="max-w-xs opacity-90 hover:opacity-100 transition-opacity">
+            </div>
+
+            <!-- Search -->
+            <div class="w-full max-w-2xl animate-slide-up">
+                <form id="search-form" class="relative">
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60"></i>
+                        <input 
+                            type="text" 
+                            id="search-input"
+                            class="search-input w-full py-4 pl-12 pr-20 rounded-2xl text-white placeholder-white/60 text-lg"
+                            placeholder="Search the web..."
+                            autocomplete="off"
+                        >
+                        <div class="absolute right-2 top-1/2 transform -translate-y-1/2">
+                            <select id="search-engine" class="bg-transparent text-white text-sm border-none outline-none">
+                                <option value="google">Google</option>
+                                <option value="bing">Bing</option>
+                                <option value="duckduckgo">DuckDuckGo</option>
+                                <option value="youtube">YouTube</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Quick Access -->
+            <div class="w-full max-w-6xl animate-slide-up" style="animation-delay: 0.2s;">
+                <div class="glass-strong rounded-3xl p-6">
+                    <h3 class="text-lg font-semibold mb-4 text-center opacity-90">Quick Access</h3>
+                    <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-10 gap-4" id="quick-links">
+                        <!-- Quick links will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Widgets Section -->
+        <section class="px-6 pb-6">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Todo Widget -->
+                <div class="widget glass-strong rounded-2xl p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold flex items-center">
+                            <i class="fas fa-tasks mr-2 text-blue-400"></i>
+                            Todo List
+                        </h3>
+                        <button id="add-todo-btn" class="text-blue-400 hover:text-blue-300">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="space-y-2 max-h-40 overflow-y-auto custom-scrollbar" id="todo-list">
+                        <!-- Todo items will be populated by JavaScript -->
+                    </div>
+                    <div class="mt-4" id="todo-input-container" style="display: none;">
+                        <input 
+                            type="text" 
+                            id="todo-input"
+                            class="w-full bg-white/10 rounded-lg px-3 py-2 text-sm placeholder-white/60"
+                            placeholder="Add a new task..."
+                        >
+                    </div>
+                </div>
+
+                <!-- Notes Widget -->
+                <div class="widget glass-strong rounded-2xl p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold flex items-center">
+                            <i class="fas fa-sticky-note mr-2 text-yellow-400"></i>
+                            Quick Notes
+                        </h3>
+                        <button id="save-notes-btn" class="text-yellow-400 hover:text-yellow-300">
+                            <i class="fas fa-save"></i>
+                        </button>
+                    </div>
+                    <textarea 
+                        id="notes-textarea"
+                        class="w-full h-32 bg-white/10 rounded-lg p-3 text-sm placeholder-white/60 resize-none custom-scrollbar"
+                        placeholder="Write your notes here..."
+                    ></textarea>
+                </div>
+
+                <!-- Pomodoro Timer Widget -->
+                <div class="widget glass-strong rounded-2xl p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold flex items-center">
+                            <i class="fas fa-clock mr-2 text-red-400"></i>
+                            Pomodoro
+                        </h3>
+                        <button id="pomodoro-reset" class="text-red-400 hover:text-red-300">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-mono font-bold mb-4" id="pomodoro-time">25:00</div>
+                        <div class="flex justify-center space-x-2">
+                            <button id="pomodoro-start" class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                Start
+                            </button>
+                            <button id="pomodoro-pause" class="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                Pause
+                            </button>
+                        </div>
+                        <div class="mt-2 text-xs opacity-70" id="pomodoro-status">Ready to focus</div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <div class="w-full flex justify-center py-4" id="icon-bar">
-        <div class="flex flex-wrap justify-center space-x-4">
-            <a href="https://www.xbox.com" class="flex flex-col items-center hover:text-gray-300">
-                <i class="fab fa-xbox text-3xl"></i>
-                <span class="mt-2">Xbox</span>
-            </a>
-            <a href="https://www.bing.com" class="flex flex-col items-center hover:text-gray-300">
-                <i class="fas fa-search text-3xl"></i>
-                <span class="mt-2">Bing</span>
-            </a>
-            <a href="https://www.msn.com" class="flex flex-col items-center hover:text-gray-300">
-                <i class="fas fa-globe text-3xl"></i>
-                <span class="mt-2">MSN</span>
-            </a>
-            <a href="https://outlook.live.com" class="flex flex-col items-center hover:text-gray-300">
-                <i class="fas fa-envelope text-3xl"></i>
-                <span class="mt-2">Outlook</span>
-            </a>
-            <a href="https://mail.google.com" class="flex flex-col items-center hover:text-gray-300">
-                <i class="fas fa-envelope-open text-3xl"></i>
-                <span class="mt-2">Gmail</span>
-            </a>
-            <a href="https://www.github.com" class="flex flex-col items-center hover:text-gray-300">
-                <i class="fab fa-github text-3xl"></i>
-                <span class="mt-2">GitHub</span>
-            </a>
-            <a href="https://www.reddit.com" class="flex flex-col items-center hover:text-gray-300">
-                <i class="fab fa-reddit text-3xl"></i>
-                <span class="mt-2">Reddit</span>
-            </a>
-            <a href="https://www.instagram.com" class="flex flex-col items-center hover:text-gray-300">
-                <i class="fab fa-instagram text-3xl"></i>
-                <span class="mt-2">Instagram</span>
-            </a>
-            <a href="https://www.discord.com" class="flex flex-col items-center hover:text-gray-300">
-                <i class="fab fa-discord text-3xl"></i>
-                <span class="mt-2">Discord</span>
-            </a>
-            <a href="https://www.youtube.com" class="flex flex-col items-center hover:text-gray-300">
-                <i class="fab fa-youtube text-3xl"></i>
-                <span class="mt-2">YouTube</span>
-            </a>
+    <!-- Settings Panel -->
+    <div class="settings-panel fixed top-0 right-0 h-full w-80 glass-strong z-50 p-6 custom-scrollbar overflow-y-auto" id="settings-panel">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-semibold">Settings</h2>
+            <button id="close-settings" class="text-white/60 hover:text-white">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Theme Settings -->
+        <div class="mb-6">
+            <h3 class="text-lg font-medium mb-3">Theme</h3>
+            <div class="space-y-2">
+                <label class="flex items-center space-x-3">
+                    <input type="radio" name="theme" value="auto" class="text-blue-500" checked>
+                    <span>Auto (Time-based)</span>
+                </label>
+                <label class="flex items-center space-x-3">
+                    <input type="radio" name="theme" value="morning" class="text-blue-500">
+                    <span>Morning</span>
+                </label>
+                <label class="flex items-center space-x-3">
+                    <input type="radio" name="theme" value="afternoon" class="text-blue-500">
+                    <span>Afternoon</span>
+                </label>
+                <label class="flex items-center space-x-3">
+                    <input type="radio" name="theme" value="evening" class="text-blue-500">
+                    <span>Evening</span>
+                </label>
+                <label class="flex items-center space-x-3">
+                    <input type="radio" name="theme" value="night" class="text-blue-500">
+                    <span>Night</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Quick Links Settings -->
+        <div class="mb-6">
+            <h3 class="text-lg font-medium mb-3">Quick Links</h3>
+            <div class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar" id="quick-links-settings">
+                <!-- Will be populated by JavaScript -->
+            </div>
+            <button id="add-custom-link" class="mt-3 w-full bg-blue-500 hover:bg-blue-600 py-2 rounded-lg text-sm font-medium transition-colors">
+                Add Custom Link
+            </button>
+        </div>
+
+        <!-- Widget Settings -->
+        <div class="mb-6">
+            <h3 class="text-lg font-medium mb-3">Widgets</h3>
+            <div class="space-y-2">
+                <label class="flex items-center justify-between">
+                    <span>Weather Widget</span>
+                    <input type="checkbox" id="weather-toggle" class="toggle" checked>
+                </label>
+                <label class="flex items-center justify-between">
+                    <span>Todo List</span>
+                    <input type="checkbox" id="todo-toggle" class="toggle" checked>
+                </label>
+                <label class="flex items-center justify-between">
+                    <span>Notes</span>
+                    <input type="checkbox" id="notes-toggle" class="toggle" checked>
+                </label>
+                <label class="flex items-center justify-between">
+                    <span>Pomodoro Timer</span>
+                    <input type="checkbox" id="pomodoro-toggle" class="toggle" checked>
+                </label>
+                <label class="flex items-center justify-between">
+                    <span>Particles Effect</span>
+                    <input type="checkbox" id="particles-toggle" class="toggle" checked>
+                </label>
+            </div>
+        </div>
+
+        <!-- Data Management -->
+        <div class="mb-6">
+            <h3 class="text-lg font-medium mb-3">Data</h3>
+            <div class="space-y-2">
+                <button id="export-settings" class="w-full bg-green-500 hover:bg-green-600 py-2 rounded-lg text-sm font-medium transition-colors">
+                    Export Settings
+                </button>
+                <button id="import-settings" class="w-full bg-blue-500 hover:bg-blue-600 py-2 rounded-lg text-sm font-medium transition-colors">
+                    Import Settings
+                </button>
+                <button id="reset-settings" class="w-full bg-red-500 hover:bg-red-600 py-2 rounded-lg text-sm font-medium transition-colors">
+                    Reset to Default
+                </button>
+            </div>
         </div>
     </div>
 
-    <div class="text-2xl md:text-4xl font-light absolute bottom-4 left-4 cool-font" id="date">January 1, 2023</div>
-
-    <div class="absolute top-4 right-4">
-        <button id="settings-button" class="text-white hover:text-gray-300">
-            <i class="fas fa-cog text-3xl"></i>
-        </button>
-    </div>
-
-    <div id="settings-panel"
-        class="settings-panel absolute top-16 right-4 bg-white text-black p-4 rounded-lg shadow-lg">
-        <h2 class="text-xl font-bold mb-4">Settings</h2>
-        <div class="flex flex-col space-y-2">
-            <label class="flex items-center">
-                <input type="checkbox" class="mr-2" data-icon="xbox" checked>
-                Xbox
-            </label>
-            <label class="flex items-center">
-                <input type="checkbox" class="mr-2" data-icon="bing" checked>
-                Bing
-            </label>
-            <label class="flex items-center">
-                <input type="checkbox" class="mr-2" data-icon="msn" checked>
-                MSN
-            </label>
-            <label class="flex items-center">
-                <input type="checkbox" class="mr-2" data-icon="outlook" checked>
-                Outlook
-            </label>
-            <label class="flex items-center">
-                <input type="checkbox" class="mr-2" data-icon="gmail" checked>
-                Gmail
-            </label>
-            <label class="flex items-center">
-                <input type="checkbox" class="mr-2" data-icon="github" checked>
-                GitHub
-            </label>
-            <label class="flex items-center">
-                <input type="checkbox" class="mr-2" data-icon="reddit" checked>
-                Reddit
-            </label>
-            <label class="flex items-center">
-                <input type="checkbox" class="mr-2" data-icon="instagram" checked>
-                Instagram
-            </label>
-            <label class="flex items-center">
-                <input type="checkbox" class="mr-2" data-icon="discord" checked>
-                Discord
-            </label>
-            <label class="flex items-center">
-                <input type="checkbox" class="mr-2" data-icon="youtube" checked>
-                YouTube
-            </label>
-            <label class="flex items-center">
-                <input type="checkbox" id="dock-style" class="mr-2">
-                Dock Style
-            </label>
+    <!-- Custom Link Modal -->
+    <div id="custom-link-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center" style="display: none;">
+        <div class="glass-strong rounded-2xl p-6 w-full max-w-md mx-4">
+            <h3 class="text-lg font-semibold mb-4">Add Custom Link</h3>
+            <div class="space-y-4">
+                <input type="text" id="custom-link-name" placeholder="Link Name" class="w-full bg-white/10 rounded-lg px-3 py-2">
+                <input type="url" id="custom-link-url" placeholder="https://example.com" class="w-full bg-white/10 rounded-lg px-3 py-2">
+                <input type="text" id="custom-link-icon" placeholder="fas fa-globe (Font Awesome class)" class="w-full bg-white/10 rounded-lg px-3 py-2">
+                <div class="flex space-x-3">
+                    <button id="save-custom-link" class="flex-1 bg-blue-500 hover:bg-blue-600 py-2 rounded-lg font-medium transition-colors">
+                        Save
+                    </button>
+                    <button id="cancel-custom-link" class="flex-1 bg-gray-500 hover:bg-gray-600 py-2 rounded-lg font-medium transition-colors">
+                        Cancel
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <script>
-        function saveSettings() {
-            const checkboxes = document.querySelectorAll('#settings-panel input[type="checkbox"]');
-            checkboxes.forEach(checkbox => {
-                const key = checkbox.id === 'dock-style' ? 'dock-style' : `icon-${checkbox.dataset.icon}`;
-                localStorage.setItem(key, checkbox.checked);
-            });
-        }
-
-        function loadSettings() {
-            const checkboxes = document.querySelectorAll('#settings-panel input[type="checkbox"]');
-            checkboxes.forEach(checkbox => {
-                const key = checkbox.id === 'dock-style' ? 'dock-style' : `icon-${checkbox.dataset.icon}`;
-                const savedValue = localStorage.getItem(key);
-                if (savedValue !== null) {
-                    checkbox.checked = savedValue === 'true';
-                }
-            });
-        }
-
-        function updateTime() {
-            const now = new Date();
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            const formattedHours = hours % 12 || 12;
-            const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-            const timeString = `${formattedHours}:${formattedMinutes} ${ampm}`;
-            document.getElementById('time').textContent = timeString;
-
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const dateString = now.toLocaleDateString(undefined, options);
-            document.getElementById('date').textContent = dateString;
-        }
-
-        function toggleSettingsPanel() {
-            const panel = document.getElementById('settings-panel');
-            panel.style.display = panel.style.display === 'none' || panel.style.display === '' ? 'block' : 'none';
-        }
-
-        function updateIcons() {
-            const checkboxes = document.querySelectorAll('#settings-panel input[type="checkbox"]');
-            const iconBar = document.getElementById('icon-bar');
-            const dockStyle = document.getElementById('dock-style').checked;
-            iconBar.innerHTML = '<div class="flex flex-wrap justify-center space-x-4"></div>';
-            const iconContainer = iconBar.firstChild;
-
-            iconContainer.classList.toggle('dock', dockStyle);
-
-            checkboxes.forEach(checkbox => {
-                if (checkbox.checked && checkbox.id !== 'dock-style') {
-                    const icon = checkbox.getAttribute('data-icon');
-                    let iconElement;
-
-                    switch (icon) {
-                        case 'xbox':
-                            iconElement = `<a href="https://www.xbox.com" class="flex flex-col items-center hover:text-gray-300">
-                                <i class="fab fa-xbox text-3xl"></i>
-                                <span class="mt-2">Xbox</span>
-                            </a>`;
-                            break;
-                        case 'bing':
-                            iconElement = `<a href="https://www.bing.com" class="flex flex-col items-center hover:text-gray-300">
-                                <i class="fas fa-search text-3xl"></i>
-                                <span class="mt-2">Bing</span>
-                            </a>`;
-                            break;
-                        case 'msn':
-                            iconElement = `<a href="https://www.msn.com" class="flex flex-col items-center hover:text-gray-300">
-                                <i class="fas fa-globe text-3xl"></i>
-                                <span class="mt-2">MSN</span>
-                            </a>`;
-                            break;
-                        case 'outlook':
-                            iconElement = `<a href="https://outlook.live.com" class="flex flex-col items-center hover:text-gray-300">
-                                <i class="fas fa-envelope text-3xl"></i>
-                                <span class="mt-2">Outlook</span>
-                            </a>`;
-                            break;
-                        case 'gmail':
-                            iconElement = `<a href="https://mail.google.com" class="flex flex-col items-center hover:text-gray-300">
-                                <i class="fas fa-envelope-open text-3xl"></i>
-                                <span class="mt-2">Gmail</span>
-                            </a>`;
-                            break;
-                        case 'github':
-                            iconElement = `<a href="https://www.github.com" class="flex flex-col items-center hover:text-gray-300">
-                                <i class="fab fa-github text-3xl"></i>
-                                <span class="mt-2">GitHub</span>
-                            </a>`;
-                            break;
-                        case 'reddit':
-                            iconElement = `<a href="https://www.reddit.com" class="flex flex-col items-center hover:text-gray-300">
-                                <i class="fab fa-reddit text-3xl"></i>
-                                <span class="mt-2">Reddit</span>
-                            </a>`;
-                            break;
-                        case 'instagram':
-                            iconElement = `<a href="https://www.instagram.com" class="flex flex-col items-center hover:text-gray-300">
-                                <i class="fab fa-instagram text-3xl"></i>
-                                <span class="mt-2">Instagram</span>
-                            </a>`;
-                            break;
-                        case 'discord':
-                            iconElement = `<a href="https://www.discord.com" class="flex flex-col items-center hover:text-gray-300">
-                                <i class="fab fa-discord text-3xl"></i>
-                                <span class="mt-2">Discord</span>
-                            </a>`;
-                            break;
-                        case 'youtube':
-                            iconElement = `<a href="https://www.youtube.com" class="flex flex-col items-center hover:text-gray-300">
-                                <i class="fab fa-youtube text-3xl"></i>
-                                <span class="mt-2">YouTube</span>
-                            </a>`;
-                            break;
-                    }
-
-                    iconContainer.innerHTML += iconElement;
-                }
-            });
-        }
-
-        document.getElementById('settings-button').addEventListener('click', toggleSettingsPanel);
-        document.getElementById('settings-panel').addEventListener('change', function () {
-            updateIcons();
-            saveSettings();
-        });
-
-        loadSettings();
-        setInterval(updateTime, 1000);
-        updateTime();
-        updateIcons();
-    </script>
+    <script src="script.js"></script>
 </body>
-
 </html>

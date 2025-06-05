@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(45deg, #0000ff, #000000);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .cool-font {
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .settings-panel {
+            display: none;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: none;
+            outline: none;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 10px 2px rgba(0, 255, 255, 0.7);
+        }
+
+        .search-input.pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px 2px rgba(0, 255, 255, 0.7);
+            }
+
+            50% {
+                box-shadow: 0 0 20px 4px rgba(0, 255, 255, 1);
+            }
+
+            100% {
+                box-shadow: 0 0 10px 2px rgba(0, 255, 255, 0.7);
+            }
+        }
+
+        .dock {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col items-center justify-between min-h-screen text-white relative">
+    <div class="w-full text-center py-8">
+        <div class="text-6xl md:text-8xl font-bold cool-font" id="time">12:00 PM</div>
+    </div>
+
+    <div class="w-full flex flex-col items-center py-4">
+        <img src="https://iwebbio.github.io/startpage/webbstart.png" alt="Logo" class="mb-4 max-w-xs">
+        <form action="https://www.bing.com/search" method="get" class="w-full max-w-md">
+
+
+            <div class="relative">
+                <input type="text" name="q"
+                    class="w-full py-2 px-4 rounded-full text-white search-input placeholder-white pulse"
+                    placeholder="Search Bing...">
+            </div>
+        </form>
+    </div>
+
+    <div class="w-full flex justify-center py-4" id="icon-bar">
+        <div class="flex flex-wrap justify-center space-x-4">
+            <a href="https://www.xbox.com" class="flex flex-col items-center hover:text-gray-300">
+                <i class="fab fa-xbox text-3xl"></i>
+                <span class="mt-2">Xbox</span>
+            </a>
+            <a href="https://www.bing.com" class="flex flex-col items-center hover:text-gray-300">
+                <i class="fas fa-search text-3xl"></i>
+                <span class="mt-2">Bing</span>
+            </a>
+            <a href="https://www.msn.com" class="flex flex-col items-center hover:text-gray-300">
+                <i class="fas fa-globe text-3xl"></i>
+                <span class="mt-2">MSN</span>
+            </a>
+            <a href="https://outlook.live.com" class="flex flex-col items-center hover:text-gray-300">
+                <i class="fas fa-envelope text-3xl"></i>
+                <span class="mt-2">Outlook</span>
+            </a>
+            <a href="https://mail.google.com" class="flex flex-col items-center hover:text-gray-300">
+                <i class="fas fa-envelope-open text-3xl"></i>
+                <span class="mt-2">Gmail</span>
+            </a>
+            <a href="https://www.github.com" class="flex flex-col items-center hover:text-gray-300">
+                <i class="fab fa-github text-3xl"></i>
+                <span class="mt-2">GitHub</span>
+            </a>
+            <a href="https://www.reddit.com" class="flex flex-col items-center hover:text-gray-300">
+                <i class="fab fa-reddit text-3xl"></i>
+                <span class="mt-2">Reddit</span>
+            </a>
+            <a href="https://www.instagram.com" class="flex flex-col items-center hover:text-gray-300">
+                <i class="fab fa-instagram text-3xl"></i>
+                <span class="mt-2">Instagram</span>
+            </a>
+            <a href="https://www.discord.com" class="flex flex-col items-center hover:text-gray-300">
+                <i class="fab fa-discord text-3xl"></i>
+                <span class="mt-2">Discord</span>
+            </a>
+            <a href="https://www.youtube.com" class="flex flex-col items-center hover:text-gray-300">
+                <i class="fab fa-youtube text-3xl"></i>
+                <span class="mt-2">YouTube</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="text-2xl md:text-4xl font-light absolute bottom-4 left-4 cool-font" id="date">January 1, 2023</div>
+
+    <div class="absolute top-4 right-4">
+        <button id="settings-button" class="text-white hover:text-gray-300">
+            <i class="fas fa-cog text-3xl"></i>
+        </button>
+    </div>
+
+    <div id="settings-panel"
+        class="settings-panel absolute top-16 right-4 bg-white text-black p-4 rounded-lg shadow-lg">
+        <h2 class="text-xl font-bold mb-4">Settings</h2>
+        <div class="flex flex-col space-y-2">
+            <label class="flex items-center">
+                <input type="checkbox" class="mr-2" data-icon="xbox" checked>
+                Xbox
+            </label>
+            <label class="flex items-center">
+                <input type="checkbox" class="mr-2" data-icon="bing" checked>
+                Bing
+            </label>
+            <label class="flex items-center">
+                <input type="checkbox" class="mr-2" data-icon="msn" checked>
+                MSN
+            </label>
+            <label class="flex items-center">
+                <input type="checkbox" class="mr-2" data-icon="outlook" checked>
+                Outlook
+            </label>
+            <label class="flex items-center">
+                <input type="checkbox" class="mr-2" data-icon="gmail" checked>
+                Gmail
+            </label>
+            <label class="flex items-center">
+                <input type="checkbox" class="mr-2" data-icon="github" checked>
+                GitHub
+            </label>
+            <label class="flex items-center">
+                <input type="checkbox" class="mr-2" data-icon="reddit" checked>
+                Reddit
+            </label>
+            <label class="flex items-center">
+                <input type="checkbox" class="mr-2" data-icon="instagram" checked>
+                Instagram
+            </label>
+            <label class="flex items-center">
+                <input type="checkbox" class="mr-2" data-icon="discord" checked>
+                Discord
+            </label>
+            <label class="flex items-center">
+                <input type="checkbox" class="mr-2" data-icon="youtube" checked>
+                YouTube
+            </label>
+            <label class="flex items-center">
+                <input type="checkbox" id="dock-style" class="mr-2">
+                Dock Style
+            </label>
+        </div>
+    </div>
+
+    <script>
+        function saveSettings() {
+            const checkboxes = document.querySelectorAll('#settings-panel input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                const key = checkbox.id === 'dock-style' ? 'dock-style' : `icon-${checkbox.dataset.icon}`;
+                localStorage.setItem(key, checkbox.checked);
+            });
+        }
+
+        function loadSettings() {
+            const checkboxes = document.querySelectorAll('#settings-panel input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                const key = checkbox.id === 'dock-style' ? 'dock-style' : `icon-${checkbox.dataset.icon}`;
+                const savedValue = localStorage.getItem(key);
+                if (savedValue !== null) {
+                    checkbox.checked = savedValue === 'true';
+                }
+            });
+        }
+
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const formattedHours = hours % 12 || 12;
+            const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+            const timeString = `${formattedHours}:${formattedMinutes} ${ampm}`;
+            document.getElementById('time').textContent = timeString;
+
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const dateString = now.toLocaleDateString(undefined, options);
+            document.getElementById('date').textContent = dateString;
+        }
+
+        function toggleSettingsPanel() {
+            const panel = document.getElementById('settings-panel');
+            panel.style.display = panel.style.display === 'none' || panel.style.display === '' ? 'block' : 'none';
+        }
+
+        function updateIcons() {
+            const checkboxes = document.querySelectorAll('#settings-panel input[type="checkbox"]');
+            const iconBar = document.getElementById('icon-bar');
+            const dockStyle = document.getElementById('dock-style').checked;
+            iconBar.innerHTML = '<div class="flex flex-wrap justify-center space-x-4"></div>';
+            const iconContainer = iconBar.firstChild;
+
+            iconContainer.classList.toggle('dock', dockStyle);
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked && checkbox.id !== 'dock-style') {
+                    const icon = checkbox.getAttribute('data-icon');
+                    let iconElement;
+
+                    switch (icon) {
+                        case 'xbox':
+                            iconElement = `<a href="https://www.xbox.com" class="flex flex-col items-center hover:text-gray-300">
+                                <i class="fab fa-xbox text-3xl"></i>
+                                <span class="mt-2">Xbox</span>
+                            </a>`;
+                            break;
+                        case 'bing':
+                            iconElement = `<a href="https://www.bing.com" class="flex flex-col items-center hover:text-gray-300">
+                                <i class="fas fa-search text-3xl"></i>
+                                <span class="mt-2">Bing</span>
+                            </a>`;
+                            break;
+                        case 'msn':
+                            iconElement = `<a href="https://www.msn.com" class="flex flex-col items-center hover:text-gray-300">
+                                <i class="fas fa-globe text-3xl"></i>
+                                <span class="mt-2">MSN</span>
+                            </a>`;
+                            break;
+                        case 'outlook':
+                            iconElement = `<a href="https://outlook.live.com" class="flex flex-col items-center hover:text-gray-300">
+                                <i class="fas fa-envelope text-3xl"></i>
+                                <span class="mt-2">Outlook</span>
+                            </a>`;
+                            break;
+                        case 'gmail':
+                            iconElement = `<a href="https://mail.google.com" class="flex flex-col items-center hover:text-gray-300">
+                                <i class="fas fa-envelope-open text-3xl"></i>
+                                <span class="mt-2">Gmail</span>
+                            </a>`;
+                            break;
+                        case 'github':
+                            iconElement = `<a href="https://www.github.com" class="flex flex-col items-center hover:text-gray-300">
+                                <i class="fab fa-github text-3xl"></i>
+                                <span class="mt-2">GitHub</span>
+                            </a>`;
+                            break;
+                        case 'reddit':
+                            iconElement = `<a href="https://www.reddit.com" class="flex flex-col items-center hover:text-gray-300">
+                                <i class="fab fa-reddit text-3xl"></i>
+                                <span class="mt-2">Reddit</span>
+                            </a>`;
+                            break;
+                        case 'instagram':
+                            iconElement = `<a href="https://www.instagram.com" class="flex flex-col items-center hover:text-gray-300">
+                                <i class="fab fa-instagram text-3xl"></i>
+                                <span class="mt-2">Instagram</span>
+                            </a>`;
+                            break;
+                        case 'discord':
+                            iconElement = `<a href="https://www.discord.com" class="flex flex-col items-center hover:text-gray-300">
+                                <i class="fab fa-discord text-3xl"></i>
+                                <span class="mt-2">Discord</span>
+                            </a>`;
+                            break;
+                        case 'youtube':
+                            iconElement = `<a href="https://www.youtube.com" class="flex flex-col items-center hover:text-gray-300">
+                                <i class="fab fa-youtube text-3xl"></i>
+                                <span class="mt-2">YouTube</span>
+                            </a>`;
+                            break;
+                    }
+
+                    iconContainer.innerHTML += iconElement;
+                }
+            });
+        }
+
+        document.getElementById('settings-button').addEventListener('click', toggleSettingsPanel);
+        document.getElementById('settings-panel').addEventListener('change', function () {
+            updateIcons();
+            saveSettings();
+        });
+
+        loadSettings();
+        setInterval(updateTime, 1000);
+        updateTime();
+        updateIcons();
+    </script>
+</body>
+
+</html>
